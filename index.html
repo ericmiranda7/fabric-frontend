@@ -133,7 +133,7 @@
 <body>
 
   <div class="container">
-    <h1>Cloth Anomaly Detection App</h1>
+    <h1>Fabric Defect Detection</h1>
 
     <!-- File Upload and Controls -->
     <div class="buttons">
@@ -194,14 +194,14 @@
       })
         .then(res => res.json())
         .then(data => {
-          isAnomalyDetected = Boolean(data[1] === 'True')
-          console.log(isAnomalyDetected)
+          console.log(data)
+          isAnomalyDetected = data['is_defective']
           if (isAnomalyDetected) {
             resultBox.classList.add('error');
-            resultBox.innerHTML = 'An anomaly was detected in the cloth. Please review.';
+            resultBox.innerHTML = data['reason']
           } else {
             resultBox.classList.add('success');
-            resultBox.innerHTML = 'The cloth is tested and it is intact!';
+            resultBox.innerHTML = data['reason']
           }
         })
     }
