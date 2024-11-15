@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,14 +20,17 @@
       background-position: center center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      color: #fff; /* Light text for dark theme */
+      color: #fff;
+      /* Light text for dark theme */
     }
 
     /* Container for the whole app */
     .container {
-      background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Dark background */
       width: 100%;
-      max-width: 1000px; /* Increased width for laptop screens */
+      max-width: 1000px;
+      /* Increased width for laptop screens */
       padding: 30px;
       border-radius: 8px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -55,13 +59,15 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      background-color: #444; /* Dark background for buttons */
+      background-color: #444;
+      /* Dark background for buttons */
       color: white;
       transition: background-color 0.3s ease;
     }
 
     .buttons button:hover {
-      background-color: #555; /* Slightly lighter on hover */
+      background-color: #555;
+      /* Slightly lighter on hover */
     }
 
     /* Image Preview Section */
@@ -71,7 +77,8 @@
       border: 2px solid #444;
       border-radius: 8px;
       padding: 10px;
-      background-color: #222; /* Dark background for the preview */
+      background-color: #222;
+      /* Dark background for the preview */
     }
 
     .image-preview img {
@@ -94,12 +101,14 @@
     }
 
     .result.success {
-      background-color: #2c7e2b; /* Green background for success */
+      background-color: #2c7e2b;
+      /* Green background for success */
       color: #fff;
     }
 
     .result.error {
-      background-color: #b33a3a; /* Red background for error */
+      background-color: #b33a3a;
+      /* Red background for error */
       color: #fff;
     }
 
@@ -120,6 +129,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
@@ -152,9 +162,9 @@
       const file = document.getElementById('fileUpload').files[0];
       const preview = document.getElementById('imagePreview');
       const reader = new FileReader();
-      
+
       if (file) {
-        reader.onload = function(event) {
+        reader.onload = function (event) {
           preview.innerHTML = `<img src="${event.target.result}" alt="Uploaded Image">`;
         };
         reader.readAsDataURL(file);
@@ -173,18 +183,30 @@
       const resultBox = document.getElementById('result');
       resultBox.classList.remove('success', 'error');
 
-      // Simulating analysis - Change logic here as per actual analysis
-      const isAnomalyDetected = Math.random() > 0.5;
-
-      if (isAnomalyDetected) {
-        resultBox.classList.add('error');
-        resultBox.innerHTML = 'An anomaly was detected in the cloth. Please review.';
-      } else {
-        resultBox.classList.add('success');
-        resultBox.innerHTML = 'The cloth is tested and it is intact!';
-      }
+      let isAnomalyDetected = false;
+      const formData = new FormData();
+      const file = document.getElementById('fileUpload').files[0];
+      formData.append('file', file)
+      formData.append('enctype', 'multipart/form-data')
+      fetch('http://127.0.0.1:5000/defect', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          isAnomalyDetected = Boolean(data[1] === 'True')
+          console.log(isAnomalyDetected)
+          if (isAnomalyDetected) {
+            resultBox.classList.add('error');
+            resultBox.innerHTML = 'An anomaly was detected in the cloth. Please review.';
+          } else {
+            resultBox.classList.add('success');
+            resultBox.innerHTML = 'The cloth is tested and it is intact!';
+          }
+        })
     }
   </script>
 
 </body>
+
 </html>
