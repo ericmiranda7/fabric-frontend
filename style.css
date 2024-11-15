@@ -1,0 +1,114 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('background.avif');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+  }
+  
+  /* Container for the whole app */
+  .container {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+  
+  /* Header */
+  h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+  
+  /* Buttons Section */
+  .buttons {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .buttons button {
+    padding: 12px 30px;
+    font-size: 18px;
+    margin: 0 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #444;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buttons button:hover {
+    background-color: #555;
+  }
+  
+  /* Image Preview Section */
+  .image-preview {
+    text-align: center;
+    margin-bottom: 20px;
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #222;
+  }
+  
+  .image-preview img {
+    max-width: 100%;
+    max-height: 400px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+  }
+  
+  /* Result Section */
+  .result {
+    text-align: center;
+    font-size: 20px;
+    padding: 15px;
+    background-color: #333;
+    border: 2px solid #444;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .result.success {
+    background-color: #2c7e2b;
+    color: #fff;
+  }
+  
+  .result.error {
+    background-color: #b33a3a;
+    color: #fff;
+  }
+  
+  /* Responsive Layout */
+  @media (max-width: 768px) {
+    .container {
+      padding: 15px;
+    }
+  
+    .buttons button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .image-preview {
+      margin-bottom: 10px;
+    }
+  }
+  

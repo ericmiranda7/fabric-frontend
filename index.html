@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fabric Defect Detection</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('background.avif');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #fff; /* Light text for dark theme */
+    }
+
+    /* Container for the whole app */
+    .container {
+      background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+      width: 100%;
+      max-width: 1000px; /* Increased width for laptop screens */
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    /* Header */
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+    /* Buttons Section */
+    .buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .buttons button {
+      padding: 12px 30px;
+      font-size: 18px;
+      margin: 0 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #444; /* Dark background for buttons */
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .buttons button:hover {
+      background-color: #555; /* Slightly lighter on hover */
+    }
+
+    /* Image Preview Section */
+    .image-preview {
+      text-align: center;
+      margin-bottom: 20px;
+      border: 2px solid #444;
+      border-radius: 8px;
+      padding: 10px;
+      background-color: #222; /* Dark background for the preview */
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      max-height: 400px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 5px;
+    }
+
+    /* Result Section */
+    .result {
+      text-align: center;
+      font-size: 20px;
+      padding: 15px;
+      background-color: #333;
+      border: 2px solid #444;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .result.success {
+      background-color: #2c7e2b; /* Green background for success */
+      color: #fff;
+    }
+
+    .result.error {
+      background-color: #b33a3a; /* Red background for error */
+      color: #fff;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .buttons button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .image-preview {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Cloth Anomaly Detection App</h1>
+
+    <!-- File Upload and Controls -->
+    <div class="buttons">
+      <input type="file" id="fileUpload" style="display:none;" onchange="previewImage()" />
+      <button onclick="document.getElementById('fileUpload').click()">Choose File</button>
+      <button onclick="clearImage()">Clear</button>
+    </div>
+
+    <!-- Image Preview Section -->
+    <div class="image-preview" id="imagePreview">
+      <p>No image uploaded yet.</p>
+    </div>
+
+    <!-- Analyze Button -->
+    <div class="buttons">
+      <button onclick="analyzeCloth()">Analyze Cloth</button>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // Function to preview the image
+    function previewImage() {
+      const file = document.getElementById('fileUpload').files[0];
+      const preview = document.getElementById('imagePreview');
+      const reader = new FileReader();
+      
+      if (file) {
+        reader.onload = function(event) {
+          preview.innerHTML = `<img src="${event.target.result}" alt="Uploaded Image">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Function to clear the uploaded image
+    function clearImage() {
+      document.getElementById('fileUpload').value = "";
+      document.getElementById('imagePreview').innerHTML = "<p>No image uploaded yet.</p>";
+      document.getElementById('result').innerHTML = "";
+    }
+
+    // Function to simulate cloth analysis and show result
+    function analyzeCloth() {
+      const resultBox = document.getElementById('result');
+      resultBox.classList.remove('success', 'error');
+
+      // Simulating analysis - Change logic here as per actual analysis
+      const isAnomalyDetected = Math.random() > 0.5;
+
+      if (isAnomalyDetected) {
+        resultBox.classList.add('error');
+        resultBox.innerHTML = 'An anomaly was detected in the cloth. Please review.';
+      } else {
+        resultBox.classList.add('success');
+        resultBox.innerHTML = 'The cloth is tested and it is intact!';
+      }
+    }
+  </script>
+
+</body>
+</html>
